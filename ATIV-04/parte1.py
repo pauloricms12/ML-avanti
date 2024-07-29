@@ -19,7 +19,7 @@ def check_images_size(directory):
                 print(img_size)
                 if i == 10: break
 
-check_images_size('FastFoodClassificationV2')
+# check_images_size('FastFoodClassificationV2')
 
 def class_distribution(directory):
     fig, axes = plt.subplots(1, 3)
@@ -35,7 +35,7 @@ def class_distribution(directory):
     # plt.tight_layout()
     plt.show()
 
-class_distribution('FastFoodClassificationV2')
+# class_distribution('FastFoodClassificationV2')
 
 #Identificação de Duplicatas
 def duplicate_images(directory):
@@ -59,4 +59,33 @@ def duplicate_images(directory):
                         break
                 images.append(image)
 
-duplicate_images('FastFoodClassificationV2')
+# duplicate_images('FastFoodClassificationV2')
+
+#Formato
+def images_format(directory):
+    total_jpg = 0
+    total_png = 0
+    total_others = 0
+    for main_folder in ['Test', 'Train', 'Valid']:
+        path = os.path.join(directory, main_folder)
+        jpg = 0
+        png = 0
+        others = 0
+        for food in os.listdir(path):
+            food_path = os.path.join(path, food)
+            for image in os.listdir(food_path):
+                image_path = os.path.join(food_path, image)
+                format = os.path.splitext(image_path)
+                if format[1] in [".jpg", ".jpeg"]:
+                    jpg += 1
+                    total_jpg +=1
+                elif format[1] == ".png":
+                    png += 1
+                    total_png +=1
+                else:
+                    others += 1
+                    total_others += 1 
+        print(f'{main_folder}\njpg = {jpg}\npng = {png}\nothers={others}\n')
+    print(f'Total\njpg = {total_jpg}\npng = {total_png}\nothers={total_others}')
+
+images_format("FastFoodClassificationV2")
